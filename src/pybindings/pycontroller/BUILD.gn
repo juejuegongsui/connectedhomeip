@@ -52,6 +52,8 @@ shared_library("CHIPController") {
     "PyChip_TransportType.cpp",
     "PyChip_Memory.cpp",
     "PyChip_PlatFormManager.cpp",
+    "PyChip_MDNS.cpp",
+    "PyChip_Inet_IPAddress.cpp",
     "${root_gen_dir}/include/controller/python/CHIPErrorToExceptionBindings.cpp",
     "${root_gen_dir}/include/controller/python/CHIPErrorToExceptionBindings.h",
     "PyChip_Main.cpp",

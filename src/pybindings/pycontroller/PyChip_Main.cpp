@@ -17,6 +17,8 @@ void bind_CHIPController_ChipExceptions(std::function< pybind11::module &(std::s
 void bind_PyChip_DeviceAddressUpdateDelegate(std::function< pybind11::module &(std::string const &namespace_) > &M);
 void bind_PyChip_Memory(std::function< pybind11::module &(std::string const &namespace_) > &M);
 void bind_PyChip_PlatFormManager(std::function< pybind11::module &(std::string const &namespace_) > &M);
+void bind_PyChip_MDNS(std::function< pybind11::module &(std::string const &namespace_) > &M);
+void bind_PyChip_Inet_IPAddress(std::function< pybind11::module &(std::string const &namespace_) > &M);
 
 
 PYBIND11_MODULE(PyChip, root_module) {
@@ -52,5 +54,7 @@ PYBIND11_MODULE(PyChip, root_module) {
 	bind_PyChip_DeviceAddressUpdateDelegate(M);
 	bind_PyChip_Memory(M);
 	bind_PyChip_PlatFormManager(M);
+	bind_PyChip_MDNS(M);
+	bind_PyChip_Inet_IPAddress(M);
 
 }
