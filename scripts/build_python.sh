@@ -98,15 +98,17 @@ source "$CHIP_ROOT/scripts/activate.sh"
 gn --root="$CHIP_ROOT" gen "$OUTPUT_ROOT" --args="chip_detail_logging=$chip_detail_logging chip_use_clusters_for_ip_commissioning=$clusters $chip_mdns_arg"
 
 # Compiles python files
-ninja -C "$OUTPUT_ROOT" python
+ninja -v -C "$OUTPUT_ROOT" pycontroller
 
 # Create a virtual environment that has access to the built python tools
 virtualenv --clear "$ENVIRONMENT_ROOT"
 
 # Activate the new enviroment to register the python WHL
 source "$ENVIRONMENT_ROOT"/bin/activate
-"$ENVIRONMENT_ROOT"/bin/python -m pip install --upgrade pip
-"$ENVIRONMENT_ROOT"/bin/pip install --upgrade --force-reinstall --no-cache-dir "$OUTPUT_ROOT"/controller/python/PyCHIPController-*.whl
+# "$ENVIRONMENT_ROOT"/bin/python -m pip install --upgrade pip
+# "$ENVIRONMENT_ROOT"/bin/pip install --upgrade --force-reinstall --no-cache-dir "$OUTPUT_ROOT"/controller/python/pybindings-*.whl
+pip3.9 uninstall -y pybindings
+pip3.9 install --user out/python_lib/controller/python/pybindings-0.0-cp37-abi3-macosx_10_15_x86_64.whl
 
 echo ""
 echo_green "Compilation completed and WHL package installed in: "
