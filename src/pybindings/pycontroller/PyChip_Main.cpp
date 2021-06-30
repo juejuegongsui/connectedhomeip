@@ -40,7 +40,9 @@ PYBIND11_MODULE(PyChip, root_module) {
 		{"chip", "Transport"},
 		{"chip", "Platform"},
 		{"chip", "app"},
-		{"chip", "DeviceLayer"}
+		{"chip", "DeviceLayer"},
+		{"chip", "Mdns"},
+		{"chip", "Inet"},
 	};
 	for(auto &p : sub_modules ) modules[p.first.size() ? p.first+"::"+p.second : p.second] = modules[p.first].def_submodule(p.second.c_str(), ("Bindings for " + p.first + "::" + p.second + " namespace").c_str() );
 
