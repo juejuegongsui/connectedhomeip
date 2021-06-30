@@ -43,8 +43,8 @@ shared_library("CHIPController") {
   output_name = "PyChip"
   output_dir = "${target_out_dir}/pybindings"
   include_dirs = [ 
-                  "${chip_root}/third_party/pybind11/include/pybind11",
-                  "${chip_root}/.environment/cipd/python/include/python3.8/",
+                   "${chip_root}/third_party/pybind11/include",
+                   "${chip_root}/.environment/cipd/python/include/python3.8",
                   ]
 
   sources = [
@@ -100,6 +100,7 @@ shared_library("CHIPController") {
   if (current_os == "mac") {
     ldflags += ["-undefined", "dynamic_lookup"]
   }
+
 }
 pw_python_action("build_exceptions") {
   script = "create_error_wrapper.py"
