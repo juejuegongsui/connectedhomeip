@@ -105,10 +105,8 @@ virtualenv --clear "$ENVIRONMENT_ROOT"
 
 # Activate the new enviroment to register the python WHL
 source "$ENVIRONMENT_ROOT"/bin/activate
-# "$ENVIRONMENT_ROOT"/bin/python -m pip install --upgrade pip
-# "$ENVIRONMENT_ROOT"/bin/pip install --upgrade --force-reinstall --no-cache-dir "$OUTPUT_ROOT"/controller/python/pybindings-*.whl
-pip3.9 uninstall -y pybindings
-pip3.9 install --user out/python_lib/controller/python/pybindings-0.0-cp37-abi3-macosx_10_15_x86_64.whl
+"$ENVIRONMENT_ROOT"/bin/python -m pip install --upgrade pip
+"$ENVIRONMENT_ROOT"/bin/pip install --upgrade --force-reinstall --no-cache-dir "$OUTPUT_ROOT"/controller/python/pybindings-*.whl
 
 echo ""
 echo_green "Compilation completed and WHL package installed in: "

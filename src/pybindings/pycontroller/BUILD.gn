@@ -15,7 +15,7 @@ import("//build_overrides/build.gni")
 import("//build_overrides/chip.gni")
 import("//build_overrides/pigweed.gni")
 
-import("$dir_pw_build/python.gni")
+
 
 import("${chip_root}/build/chip/tools.gni")
 import("${chip_root}/src/platform/device.gni")
@@ -31,16 +31,20 @@ config("controller_wno_deprecate") {
   "-Wno-shadow",
   "-Wno-unused-result",
   "-Wsign-compare",
-  "-Wunreachable-code"
+  "-Wunreachable-code",
+  "-Wno-macro-redefined"
   ]
 }
 
 shared_library("CHIPController") {
+  configs -= ["//build/config/compiler:exceptions_default"]
+  configs -= ["//build/config/compiler:rtti_default"]
+
   output_name = "PyChip"
   output_dir = "${target_out_dir}/pybindings"
   include_dirs = [ 
-                  "/usr/local/include/pybind11/", 
-                  "/Library/Frameworks/Python.framework/Versions/3.9/include/python3.9",
+                  "${chip_root}/third_party/pybind11/include/pybind11",
+                  "${chip_root}/.environment/cipd/python/include/python3.8/",
                   ]
 
   sources = [
@@ -95,14 +99,11 @@ shared_library("CHIPController") {
   ]
   configs += [ ":controller_wno_deprecate" ]
   ldflags = [
-    "-F/Library/Frameworks/",  
-    "-framework", 
-    "Python", 
-    "-framework", 
-    "CoreFoundation",
-    "-L/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/config-3.9-darwin",
-    "-frtti"
+    "-frtti",
     ]
+  if (current_os == "mac") {
+    ldflags += ["-undefined", "dynamic_lookup"]
+  }
 }
 pw_python_action("build_exceptions") {
   script = "create_error_wrapper.py"
