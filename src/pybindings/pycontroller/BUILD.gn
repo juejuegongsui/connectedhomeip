@@ -42,15 +42,14 @@ shared_library("CHIPController") {
 
   output_name = "PyChip"
   output_dir = "${target_out_dir}/pybindings"
+  include_dirs = ["${chip_root}/third_party/pybind11/include"]
   if (current_os == "mac") {
-    include_dirs = [
-      "${chip_root}/third_party/pybind11/include",
+    include_dirs += [
       "${chip_root}/.environment/cipd/python/include/python3.8",
       ]
   } else if (current_os == "linux") {
-    include_dirs = [
-      "/usr/include/python3.9",
-      "/home/ubuntu/.local/lib/python3.9/site-packages/pybind11/include",
+    include_dirs += [
+      "/usr/include/python3.9"
       ]
   } else {
     assert(false, "OS not supprted.")
@@ -109,6 +108,9 @@ shared_library("CHIPController") {
     ]
   if (current_os == "mac") {
     ldflags += ["-undefined", "dynamic_lookup"]
+  }
+  if (current_os == "linux"){
+    libs = ["python3.9"]
   }
 
 }
