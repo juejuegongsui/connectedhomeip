@@ -6,13 +6,19 @@ from pybindings.PyChip import ChipExceptions
 import time
 import threading
 import ctypes
-
+import atexit
 import logging
+from sys import platform
+
+is_linux_platform = platform == "linux" or platform == "linux2"
 logger = logging.getLogger("ChipBLEMgr")
 logger.setLevel(logging.DEBUG)
 
+
 ChipExceptions.CHIPErrorToException(Platform.MemoryInit())
 platform_manager = DeviceLayer.PlatformMgr()
+
+atexit.register(platform_manager.Shutdown)
 chip_stack_init_result = platform_manager.InitChipStack()
 print("Chip Stack Init Result: {}".format(chip_stack_init_result))
 ChipExceptions.CHIPErrorToException(chip_stack_init_result)
@@ -23,7 +29,10 @@ def PlatformMainLoop():
     print("Platform main loop completed.")
 
 run_loop = threading.Thread(target=PlatformMainLoop)
-run_loop.start()
+# run_loop.start()
+
+if is_linux_platform:
+    DeviceLayer.Internal.BLEMgrImpl().ConfigureBle(0)
 
 setup_payload = SetupPayload()
 qr_code_parser = QRCodeSetupPayloadParser("VP:vendorpayload%MT:W0GU2OTB00KA0648G00")
