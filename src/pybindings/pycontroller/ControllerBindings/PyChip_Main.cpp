@@ -19,8 +19,9 @@ void bind_PyChip_Memory(std::function< pybind11::module &(std::string const &nam
 void bind_PyChip_PlatFormManager(std::function< pybind11::module &(std::string const &namespace_) > &M);
 void bind_PyChip_MDNS(std::function< pybind11::module &(std::string const &namespace_) > &M);
 void bind_PyChip_Inet_IPAddress(std::function< pybind11::module &(std::string const &namespace_) > &M);
+#if CHIP_DEVICE_LAYER_TARGET_LINUX && CHIP_DEVICE_CONFIG_ENABLE_CHIPOBLE
 void bind_PyChip_BLEManager(std::function< pybind11::module &(std::string const &namespace_) > &M);
-
+#endif
 
 PYBIND11_MODULE(PyChip, root_module) {
 	root_module.doc() = "PyChip module";
@@ -60,6 +61,8 @@ PYBIND11_MODULE(PyChip, root_module) {
 	bind_PyChip_PlatFormManager(M);
 	bind_PyChip_MDNS(M);
 	bind_PyChip_Inet_IPAddress(M);
+	#if CHIP_DEVICE_LAYER_TARGET_LINUX && CHIP_DEVICE_CONFIG_ENABLE_CHIPOBLE
 	bind_PyChip_BLEManager(M);
+	#endif
 
 }

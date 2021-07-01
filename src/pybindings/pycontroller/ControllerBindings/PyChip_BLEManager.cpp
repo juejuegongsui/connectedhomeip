@@ -1,4 +1,4 @@
-#if CHIP_DEVICE_CONFIG_ENABLE_CHIPOBLE
+#if CHIP_DEVICE_LAYER_TARGET_LINUX && CHIP_DEVICE_CONFIG_ENABLE_CHIPOBLE
 #include <ble/BleApplicationDelegate.h>
 #include <ble/BleConnectionDelegate.h>
 #include <ble/BleLayer.h>
