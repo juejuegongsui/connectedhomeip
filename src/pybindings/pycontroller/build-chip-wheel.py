@@ -125,7 +125,9 @@ try:
     # Build the chip package...
     #
     packages=[
-        'pybindings'
+        'pybindings',
+        "ChipCaller",
+        "clusters",
     ]
 
     # Invoke the setuptools 'bdist_wheel' command to generate a wheel containing

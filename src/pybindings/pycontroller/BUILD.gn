@@ -57,19 +57,20 @@ shared_library("CHIPController") {
   }
 
   sources = [
-    "PyChip_ControllerDeviceCommissioner.cpp",
-    "PyChip_ControllerInitParams.cpp",
-    "PyChip_DeviceAddressUpdateDelegate.cpp",
-    "PyChip_Rendezvous.cpp",
-    "PyChip_SetupPayload.cpp",
-    "PyChip_TransportType.cpp",
-    "PyChip_Memory.cpp",
-    "PyChip_PlatFormManager.cpp",
-    "PyChip_MDNS.cpp",
-    "PyChip_Inet_IPAddress.cpp",
+    "ControllerBindings/PyChip_ControllerDeviceCommissioner.cpp",
+    "ControllerBindings/PyChip_ControllerInitParams.cpp",
+    "ControllerBindings/PyChip_DeviceAddressUpdateDelegate.cpp",
+    "ControllerBindings/PyChip_Rendezvous.cpp",
+    "ControllerBindings/PyChip_SetupPayload.cpp",
+    "ControllerBindings/PyChip_TransportType.cpp",
+    "ControllerBindings/PyChip_Memory.cpp",
+    "ControllerBindings/PyChip_PlatFormManager.cpp",
+    "ControllerBindings/PyChip_MDNS.cpp",
+    "ControllerBindings/PyChip_Inet_IPAddress.cpp",
     "${root_gen_dir}/include/controller/python/CHIPErrorToExceptionBindings.cpp",
     "${root_gen_dir}/include/controller/python/CHIPErrorToExceptionBindings.h",
-    "PyChip_Main.cpp",
+    "ControllerBindings/PyChip_Main.cpp",
+    "clusters/CHIPClusters.cpp",
   ]
 
   if (chip_enable_ble) {
@@ -139,6 +140,10 @@ pw_python_action("pycontroller") {
       sources = [
         "chip-device-ctrl.py",
         "chip-repl.py",
+        "ChipCaller/__init__.py",
+        "ChipCaller/Caller.py",
+        "clusters/__init__.py",
+        "clusters/CHIPClusters.py",
       ]
     },
     {

@@ -60,6 +60,7 @@ def generate_cpp(error_codes):
     return '''
 #include "pybind11/pybind11.h"
 #include "CHIPErrorToExceptionBindings.h"
+#include <functional>
 
 namespace py = pybind11;
 
