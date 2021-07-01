@@ -8,6 +8,8 @@
 #include <controller/ExampleOperationalCredentialsIssuer.h>
 #include <controller/OperationalCredentialsDelegate.h>
 #include <core/CHIPPersistentStorageDelegate.h>
+#include <support/Span.h>
+#include <core/PeerId.h>
 
 
 #ifndef BINDER_PYBIND11_TYPE_CASTER
@@ -21,7 +23,7 @@
 struct PyCallBack_chip_Controller_OperationalCredentialsDelegate : public chip::Controller::OperationalCredentialsDelegate {
 	using chip::Controller::OperationalCredentialsDelegate::OperationalCredentialsDelegate;
 
-	int GenerateNodeOperationalCertificate(const class chip::PeerId & a0, const class chip::Span<const unsigned char> & a1, long long a2, unsigned char * a3, unsigned int a4, unsigned int & a5) override {
+	int GenerateNodeOperationalCertificate(const chip::PeerId & a0, const chip::ByteSpan & a1, int64_t a2, uint8_t * a3, uint32_t a4, uint32_t & a5) override {
 		pybind11::gil_scoped_acquire gil;
 		pybind11::function overload = pybind11::get_overload(static_cast<const chip::Controller::OperationalCredentialsDelegate *>(this), "GenerateNodeOperationalCertificate");
 		if (overload) {
@@ -34,7 +36,7 @@ struct PyCallBack_chip_Controller_OperationalCredentialsDelegate : public chip::
 		}
 		pybind11::pybind11_fail("Tried to call pure virtual function \"OperationalCredentialsDelegate::GenerateNodeOperationalCertificate\"");
 	}
-	int GetIntermediateCACertificate(unsigned long long a0, unsigned char * a1, unsigned int a2, unsigned int & a3) override {
+	int GetIntermediateCACertificate(chip::FabricId a0, uint8_t * a1, uint32_t a2, uint32_t & a3) override {
 		pybind11::gil_scoped_acquire gil;
 		pybind11::function overload = pybind11::get_overload(static_cast<const chip::Controller::OperationalCredentialsDelegate *>(this), "GetIntermediateCACertificate");
 		if (overload) {
@@ -47,7 +49,7 @@ struct PyCallBack_chip_Controller_OperationalCredentialsDelegate : public chip::
 		}
 		return OperationalCredentialsDelegate::GetIntermediateCACertificate(a0, a1, a2, a3);
 	}
-	int GetRootCACertificate(unsigned long long a0, unsigned char * a1, unsigned int a2, unsigned int & a3) override {
+	int GetRootCACertificate(chip::FabricId a0, uint8_t * a1, uint32_t a2, uint32_t & a3) override {
 		pybind11::gil_scoped_acquire gil;
 		pybind11::function overload = pybind11::get_overload(static_cast<const chip::Controller::OperationalCredentialsDelegate *>(this), "GetRootCACertificate");
 		if (overload) {
@@ -66,7 +68,7 @@ struct PyCallBack_chip_Controller_OperationalCredentialsDelegate : public chip::
 struct PyCallBack_chip_Controller_DeviceAddressUpdateDelegate : public chip::Controller::DeviceAddressUpdateDelegate {
 	using chip::Controller::DeviceAddressUpdateDelegate::DeviceAddressUpdateDelegate;
 
-	void OnAddressUpdateComplete(unsigned long long a0, int a1) override {
+	void OnAddressUpdateComplete(chip::NodeId a0, CHIP_ERROR a1) override {
 		pybind11::gil_scoped_acquire gil;
 		pybind11::function overload = pybind11::get_overload(static_cast<const chip::Controller::DeviceAddressUpdateDelegate *>(this), "OnAddressUpdateComplete");
 		if (overload) {
@@ -80,12 +82,12 @@ struct PyCallBack_chip_Controller_DeviceAddressUpdateDelegate : public chip::Con
 		pybind11::pybind11_fail("Tried to call pure virtual function \"DeviceAddressUpdateDelegate::OnAddressUpdateComplete\"");
 	}
 };
-
 // chip::Controller::ExampleOperationalCredentialsIssuer file:controller/ExampleOperationalCredentialsIssuer.h line:41
 struct PyCallBack_chip_Controller_ExampleOperationalCredentialsIssuer : public chip::Controller::ExampleOperationalCredentialsIssuer {
 	using chip::Controller::ExampleOperationalCredentialsIssuer::ExampleOperationalCredentialsIssuer;
 
-	int GenerateNodeOperationalCertificate(const class chip::PeerId & a0, const class chip::Span<const unsigned char> & a1, long long a2, unsigned char * a3, unsigned int a4, unsigned int & a5) override {
+	int GenerateNodeOperationalCertificate(const chip::PeerId & a0, const chip::ByteSpan & a1, int64_t a2,
+                                                  uint8_t * a3, uint32_t a4, uint32_t & a5) override {
 		pybind11::gil_scoped_acquire gil;
 		pybind11::function overload = pybind11::get_overload(static_cast<const chip::Controller::ExampleOperationalCredentialsIssuer *>(this), "GenerateNodeOperationalCertificate");
 		if (overload) {
@@ -98,7 +100,7 @@ struct PyCallBack_chip_Controller_ExampleOperationalCredentialsIssuer : public c
 		}
 		return ExampleOperationalCredentialsIssuer::GenerateNodeOperationalCertificate(a0, a1, a2, a3, a4, a5);
 	}
-	int GetRootCACertificate(unsigned long long a0, unsigned char * a1, unsigned int a2, unsigned int & a3) override {
+	int GetRootCACertificate(chip::FabricId a0, uint8_t * a1, uint32_t a2, uint32_t & a3) override {
 		pybind11::gil_scoped_acquire gil;
 		pybind11::function overload = pybind11::get_overload(static_cast<const chip::Controller::ExampleOperationalCredentialsIssuer *>(this), "GetRootCACertificate");
 		if (overload) {
@@ -116,7 +118,7 @@ struct PyCallBack_chip_Controller_ExampleOperationalCredentialsIssuer : public c
 struct PyCallBack_chip_PersistentStorageDelegate : public chip::PersistentStorageDelegate {
 	using chip::PersistentStorageDelegate::PersistentStorageDelegate;
 
-	int SyncGetKeyValue(const char * a0, void * a1, unsigned short & a2) override {
+	int SyncGetKeyValue(const char * a0, void * a1, uint16_t & a2) override {
 		pybind11::gil_scoped_acquire gil;
 		pybind11::function overload = pybind11::get_overload(static_cast<const chip::PersistentStorageDelegate *>(this), "SyncGetKeyValue");
 		if (overload) {
@@ -129,7 +131,7 @@ struct PyCallBack_chip_PersistentStorageDelegate : public chip::PersistentStorag
 		}
 		pybind11::pybind11_fail("Tried to call pure virtual function \"PersistentStorageDelegate::SyncGetKeyValue\"");
 	}
-	int SyncSetKeyValue(const char * a0, const void * a1, unsigned short a2) override {
+	int SyncSetKeyValue(const char * a0, const void * a1, uint16_t a2) override {
 		pybind11::gil_scoped_acquire gil;
 		pybind11::function overload = pybind11::get_overload(static_cast<const chip::PersistentStorageDelegate *>(this), "SyncSetKeyValue");
 		if (overload) {
